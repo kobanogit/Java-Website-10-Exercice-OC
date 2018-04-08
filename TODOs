@@ -1,0 +1,52 @@
+TODO :
+
+Revoir stockage :
+	- associer traductions au nom de fichier
+	- revoir architecture créée dans tables SQL
+	
+Requête :
+	- créer fontion de récupération d'une traduction existante en BDD
+	- doPost : récupérer Form et l'envoyer pour création Bean et création DAO
+	- afficher éventuelles erreurs
+	- renvoyer page avec champs input remplis
+
+	
+
+
+BPM :
+	https://bit.ly/2Hjkjnq
+
+UML :
+	https://bit.ly/2HjwY9R
+	
+
+
+
+------------------------- DATABASE : subtitles-----------------------------
+
+	- files :
+		- `files`.`idfile`,
+    	- `files`.`filename`
+		
+CREATE TABLE `files` (
+  `idfile` int(11) NOT NULL AUTO_INCREMENT,
+  `filename` varchar(45) NOT NULL,
+  PRIMARY KEY (`idfile`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+	- translations :
+		- `translations`.`translationsID`,
+		- `translations`.`line`,
+    	- `translations`.`translation`,
+    	- `translations`.`sidfile` (foreign)
+    	
+CREATE TABLE `translations` (
+  `translationsID` int(11) NOT NULL,
+  `line` int(11) NOT NULL,
+  `translation` varchar(200) DEFAULT NULL,
+  `sidfile` int(11) DEFAULT NULL,
+  PRIMARY KEY (`translationsID`),
+  KEY `sidfile` (`sidfile`),
+  CONSTRAINT `translations_ibfk_1` FOREIGN KEY (`sidfile`) REFERENCES `files` (`idfile`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
